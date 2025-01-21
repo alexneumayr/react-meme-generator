@@ -19,6 +19,10 @@ export default function App() {
         value={bottomText}
         onChange={(event) => setBottomText(event.currentTarget.value)}
       />
+      <img
+        src={`https://api.memegen.link/images/buzz/${topText}/${bottomText}.png`}
+        alt="Generated Meme"
+      />
     </>
   );
 }
