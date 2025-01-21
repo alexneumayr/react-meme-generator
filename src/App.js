@@ -1,26 +1,36 @@
 import './App.css';
 import { useState } from 'react';
+import TemplateSelector from './TemplateSelector';
 
 export default function App() {
   const [topText, setTopText] = useState('');
   const [bottomText, setBottomText] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState('');
+  const [templateList, setTemplateList] = useState([]);
+
   return (
     <>
-      <label htmlFor="top-text">Top text</label>
+      <label htmlFor="top-text-input">Top text</label>
       <input
-        id="top-text"
+        id="top-text-input"
         value={topText}
         onChange={(event) => setTopText(event.currentTarget.value)}
       />{' '}
       <br />
-      <label htmlFor="bottom-text">Bottom text</label>
+      <label htmlFor="bottom-text-input">Bottom text</label>
       <input
-        id="bottom-text"
+        id="bottom-text-input"
         value={bottomText}
         onChange={(event) => setBottomText(event.currentTarget.value)}
       />
+      <br />
+      <TemplateSelector
+        templateList={templateList}
+        setTemplateList={setTemplateList}
+      />
+      <br />
       <img
-        src={`https://api.memegen.link/images/buzz/${topText}/${bottomText}.png`}
+        src={`https://api.memegen.link/images/${selectedTemplate}/${topText}/${bottomText}.png`}
         alt="Generated Meme"
       />
     </>
