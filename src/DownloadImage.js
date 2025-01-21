@@ -5,9 +5,9 @@ export const DownloadImage = ({ url, fileName }) => {
     fetch(url)
       .then((response) => response.blob())
       .then((blob) => {
-        const url = window.URL.createObjectURL(new Blob([blob]));
+        const tempUrl = window.URL.createObjectURL(new Blob([blob]));
         const link = document.createElement('a');
-        link.href = url;
+        link.href = tempUrl;
         link.download = fileName;
         document.body.appendChild(link);
         link.click();

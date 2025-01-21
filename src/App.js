@@ -56,7 +56,6 @@ export default function App() {
           templateList={templateList}
           setTemplateList={setTemplateList}
           setSelectedTemplate={setSelectedTemplate}
-          onChange={() => console.log('Changes')}
         />
         <input type="submit" hidden />
       </form>
