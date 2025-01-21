@@ -8,10 +8,14 @@ export default function App() {
   const [selectedTemplate, setSelectedTemplate] = useState('');
   const [template, setTemplate] = useState('');
   const [templateList, setTemplateList] = useState([]);
+  const [initialPreview, setInitialPreview] = useState(true);
 
   function handleFormSubmit(event) {
     event.preventDefault();
     setTemplate(selectedTemplate);
+    if (initialPreview) {
+      setInitialPreview(false);
+    }
   }
 
   return (
@@ -40,11 +44,19 @@ export default function App() {
         <input type="submit" hidden />
       </form>
       <br />
-      <img
-        src={`https://api.memegen.link/images/${template}/${topText}/${bottomText}.png`}
-        alt="Generated Meme"
-        data-test-id="meme-image"
-      />
+      {initialPreview ? (
+        <img
+          src={`https://api.memegen.link/images/boat/let's_make/some_memes.png`}
+          alt="Generated Meme"
+          data-test-id="meme-image"
+        />
+      ) : (
+        <img
+          src={`https://api.memegen.link/images/${template}/${topText}/${bottomText}.png`}
+          alt="Generated Meme"
+          data-test-id="meme-image"
+        />
+      )}
     </>
   );
 }
