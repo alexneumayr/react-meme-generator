@@ -1,22 +1,38 @@
 import './App.css';
 import { useState } from 'react';
-import { DownloadImage, DownloadLink } from './DownloadImage';
+import { DownloadImage } from './DownloadImage';
 import TemplateSelector from './TemplateSelector';
 
 export default function App() {
   const [topText, setTopText] = useState('');
   const [bottomText, setBottomText] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState('');
-  const [template, setTemplate] = useState('');
+  const [template, setTemplate] = useState('boat');
   const [templateList, setTemplateList] = useState([]);
-  const [initialPreview, setInitialPreview] = useState(true);
+  const [memeImageUrl, setMemeImageUrl] = useState(
+    "https://api.memegen.link/images/boat/let's_make/some_memes.png",
+  );
+
+  function handleTopTextChange(event) {
+    setTopText(event.currentTarget.value);
+    setMemeImageUrl(
+      `https://api.memegen.link/images/${template}/${event.currentTarget.value}/${bottomText}.png`,
+    );
+  }
+
+  function handleBottomTextChange(event) {
+    setBottomText(event.currentTarget.value);
+    setMemeImageUrl(
+      `https://api.memegen.link/images/${template}/${topText}/${event.currentTarget.value}.png`,
+    );
+  }
 
   function handleFormSubmit(event) {
     event.preventDefault();
     setTemplate(selectedTemplate);
-    if (initialPreview) {
-      setInitialPreview(false);
-    }
+    setMemeImageUrl(
+      `https://api.memegen.link/images/${selectedTemplate}/${topText}/${bottomText}.png`,
+    );
   }
 
   return (
@@ -26,14 +42,14 @@ export default function App() {
         <input
           id="top-text-input"
           value={topText}
-          onChange={(event) => setTopText(event.currentTarget.value)}
+          onChange={handleTopTextChange}
         />
         <br />
         <label htmlFor="bottom-text-input">Bottom text</label>
         <input
           id="bottom-text-input"
           value={bottomText}
-          onChange={(event) => setBottomText(event.currentTarget.value)}
+          onChange={handleBottomTextChange}
         />
         <br />
         <TemplateSelector
@@ -45,23 +61,8 @@ export default function App() {
         <input type="submit" hidden />
       </form>
       <br />
-      {initialPreview ? (
-        <img
-          src={`https://api.memegen.link/images/boat/let's_make/some_memes.png`}
-          alt="Generated Meme"
-          data-test-id="meme-image"
-        />
-      ) : (
-        <img
-          src={`https://api.memegen.link/images/${template}/${topText}/${bottomText}.png`}
-          alt="Generated Meme"
-          data-test-id="meme-image"
-        />
-      )}
-      <DownloadImage
-        url="https://api.memegen.link/images/boat/let's_make/some_memes.png"
-        fileName="meme.png"
-      />
+      <img src={memeImageUrl} alt="Generated Meme" data-test-id="meme-image" />
+      <DownloadImage url={memeImageUrl} fileName="meme.png" />
     </>
   );
 }
