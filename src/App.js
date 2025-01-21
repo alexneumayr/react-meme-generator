@@ -1,23 +1,24 @@
 import './App.css';
-import logo from './logo.svg';
+import { useState } from 'react';
 
 export default function App() {
+  const [topText, setTopText] = useState('');
+  const [bottomText, setBottomText] = useState('');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <label htmlFor="top-text">Top text</label>
+      <input
+        id="top-text"
+        value={topText}
+        onChange={(event) => setTopText(event.currentTarget.value)}
+      />{' '}
+      <br />
+      <label htmlFor="bottom-text">Bottom text</label>
+      <input
+        id="bottom-text"
+        value={bottomText}
+        onChange={(event) => setBottomText(event.currentTarget.value)}
+      />
+    </>
   );
 }
