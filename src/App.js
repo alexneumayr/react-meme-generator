@@ -1,5 +1,6 @@
 import './App.css';
 import { useState } from 'react';
+import { DownloadImage, DownloadLink } from './DownloadImage';
 import TemplateSelector from './TemplateSelector';
 
 export default function App() {
@@ -57,6 +58,10 @@ export default function App() {
           data-test-id="meme-image"
         />
       )}
+      <DownloadImage
+        url="https://api.memegen.link/images/boat/let's_make/some_memes.png"
+        fileName="meme.png"
+      />
     </>
   );
 }
