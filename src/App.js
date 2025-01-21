@@ -6,11 +6,12 @@ export default function App() {
   const [topText, setTopText] = useState('');
   const [bottomText, setBottomText] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState('');
+  const [template, setTemplate] = useState('');
   const [templateList, setTemplateList] = useState([]);
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    setSelectedTemplate(templateList);
+    setTemplate(selectedTemplate);
   }
 
   return (
@@ -33,13 +34,14 @@ export default function App() {
         <TemplateSelector
           templateList={templateList}
           setTemplateList={setTemplateList}
+          setSelectedTemplate={setSelectedTemplate}
           onChange={() => console.log('Changes')}
         />
         <input type="submit" hidden />
       </form>
       <br />
       <img
-        src={`https://api.memegen.link/images/${selectedTemplate}/${topText}/${bottomText}.png`}
+        src={`https://api.memegen.link/images/${template}/${topText}/${bottomText}.png`}
         alt="Generated Meme"
       />
     </>

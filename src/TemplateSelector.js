@@ -1,6 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-export default function TemplateSelector({ setTemplateList, templateList }) {
+export default function TemplateSelector({
+  setTemplateList,
+  templateList,
+  setSelectedTemplate,
+}) {
   useEffect(() => {
     fetch('https://api.memegen.link/templates/')
       .then((response) => response.json())
@@ -13,7 +17,11 @@ export default function TemplateSelector({ setTemplateList, templateList }) {
   return (
     <>
       <label htmlFor="template-input">Meme template</label>
-      <input id="template-input" list="templates" onChange={set/>
+      <input
+        id="template-input"
+        list="templates"
+        onChange={(event) => setSelectedTemplate(event.currentTarget.value)}
+      />
       <datalist id="templates">
         {templateList.map((singleTemplate) => {
           return (
