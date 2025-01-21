@@ -43,6 +43,7 @@ export default function App() {
       <img
         src={`https://api.memegen.link/images/${template}/${topText}/${bottomText}.png`}
         alt="Generated Meme"
+        data-test-id="meme-image"
       />
     </>
   );
