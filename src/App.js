@@ -6,7 +6,7 @@ import TemplateSelector from './TemplateSelector';
 export default function App() {
   const [topText, setTopText] = useState('');
   const [bottomText, setBottomText] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState('boat');
   const [template, setTemplate] = useState('boat');
   const [templateList, setTemplateList] = useState([]);
   const [memeImageUrl, setMemeImageUrl] = useState(
@@ -36,32 +36,47 @@ export default function App() {
   }
 
   return (
-    <>
+    <div className="main">
       <form onSubmit={handleFormSubmit}>
-        <label htmlFor="top-text-input">Top text</label>
-        <input
-          id="top-text-input"
-          value={topText}
-          onChange={handleTopTextChange}
-        />
+        <div className="user-input">
+          <label htmlFor="top-text-input-field">Top text</label>
+          <input
+            id="top-text-input-field"
+            value={topText}
+            onChange={handleTopTextChange}
+          />
+        </div>
         <br />
-        <label htmlFor="bottom-text-input">Bottom text</label>
-        <input
-          id="bottom-text-input"
-          value={bottomText}
-          onChange={handleBottomTextChange}
-        />
+        <div className="user-input">
+          <label htmlFor="bottom-text-input-field">Bottom text</label>
+          <input
+            id="bottom-text-input-field"
+            value={bottomText}
+            onChange={handleBottomTextChange}
+          />
+        </div>
         <br />
-        <TemplateSelector
-          templateList={templateList}
-          setTemplateList={setTemplateList}
-          setSelectedTemplate={setSelectedTemplate}
-        />
+        <div className="user-input">
+          <TemplateSelector
+            templateList={templateList}
+            setTemplateList={setTemplateList}
+            setSelectedTemplate={setSelectedTemplate}
+          />
+        </div>
+        <div className="button-area">
+          <DownloadImage url={memeImageUrl} fileName="meme.png" />
+        </div>
         <input type="submit" hidden />
       </form>
       <br />
-      <img src={memeImageUrl} alt="Generated Meme" data-test-id="meme-image" />
-      <DownloadImage url={memeImageUrl} fileName="meme.png" />
-    </>
+      <div className="image-area">
+        <img
+          src={memeImageUrl}
+          alt="Generated Meme"
+          data-test-id="meme-image"
+        />
+        <br />
+      </div>
+    </div>
   );
 }
