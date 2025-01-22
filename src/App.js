@@ -13,32 +13,22 @@ export default function App() {
     "https://api.memegen.link/images/boat/let's_make/some_memes.png",
   );
 
-  function handleTopTextChange(event) {
-    setTopText(event.currentTarget.value);
-    setMemeImageUrl(
-      `https://api.memegen.link/images/${template}/${event.currentTarget.value}/${bottomText}.png`,
-    );
-  }
-
-  function handleBottomTextChange(event) {
-    setBottomText(event.currentTarget.value);
-    setMemeImageUrl(
-      `https://api.memegen.link/images/${template}/${topText}/${event.currentTarget.value}.png`,
-    );
-  }
-
   function handleFormSubmit(event) {
     event.preventDefault();
     setTemplate(selectedTemplate);
-    setMemeImageUrl(
-      `https://api.memegen.link/images/${selectedTemplate}/${topText}/${bottomText}.png`,
-    );
+    if (topText) {
+      setMemeImageUrl(
+        `https://api.memegen.link/images/${selectedTemplate}/${topText}/${bottomText}.png`,
+      );
+    }
   }
 
   function handleGenerateButtonClick() {
-    setMemeImageUrl(
-      `https://api.memegen.link/images/${template}/${topText}/${bottomText}.png`,
-    );
+    if (topText) {
+      setMemeImageUrl(
+        `https://api.memegen.link/images/${template}/${topText}/${bottomText}.png`,
+      );
+    }
   }
 
   return (
@@ -49,7 +39,8 @@ export default function App() {
           <input
             id="top-text-input-field"
             value={topText}
-            onChange={handleTopTextChange}
+            onChange={(event) => setTopText(event.currentTarget.value)}
+            required
           />
         </div>
         <br />
@@ -58,7 +49,7 @@ export default function App() {
           <input
             id="bottom-text-input-field"
             value={bottomText}
-            onChange={handleBottomTextChange}
+            onChange={(event) => setBottomText(event.currentTarget.value)}
           />
         </div>
         <br />
@@ -70,7 +61,12 @@ export default function App() {
           />
         </div>
         <div className="button-area">
-          <button onClick={handleGenerateButtonClick}>Generate</button>
+          <button
+            data-test-id="generate-meme"
+            onClick={handleGenerateButtonClick}
+          >
+            Generate
+          </button>
           <DownloadImage url={memeImageUrl} fileName="meme.png" />
         </div>
         <input type="submit" hidden />
