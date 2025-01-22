@@ -35,6 +35,12 @@ export default function App() {
     );
   }
 
+  function handleGenerateButtonClick() {
+    setMemeImageUrl(
+      `https://api.memegen.link/images/${template}/${topText}/${bottomText}.png`,
+    );
+  }
+
   return (
     <div className="main">
       <form onSubmit={handleFormSubmit}>
@@ -64,6 +70,7 @@ export default function App() {
           />
         </div>
         <div className="button-area">
+          <button onClick={handleGenerateButtonClick}>Generate</button>
           <DownloadImage url={memeImageUrl} fileName="meme.png" />
         </div>
         <input type="submit" hidden />
