@@ -16,10 +16,6 @@ body {
   margin: 0 30px;
   gap: 30px;
 }
-form {
-  width: 100%;
-}
-
 .image-area {
   grid-column: 2;
   grid-row: 1;
@@ -77,4 +73,7 @@ img {
 }
 .button-area button:hover {
   background-color: rgb(2, 66, 2);
+}
+.form-and-button {
+  width: 100%;
 }

@@ -18,7 +18,7 @@ export default function App() {
     setTemplate(selectedTemplate);
     if (topText) {
       setMemeImageUrl(
-        `https://api.memegen.link/images/${selectedTemplate}/${topText}/${bottomText}.png`,
+        `https://api.memegen.link/images/${selectedTemplate}/${topText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}/${bottomText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}.png`,
       );
     }
   }
@@ -26,40 +26,43 @@ export default function App() {
   function handleGenerateButtonClick() {
     if (topText) {
       setMemeImageUrl(
-        `https://api.memegen.link/images/${template}/${topText}/${bottomText}.png`,
+        `https://api.memegen.link/images/${selectedTemplate}/${topText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}/${bottomText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}.png`,
       );
     }
   }
 
   return (
     <div className="main">
-      <form onSubmit={handleFormSubmit}>
-        <div className="user-input">
-          <label htmlFor="top-text-input-field">Top text</label>
-          <input
-            id="top-text-input-field"
-            value={topText}
-            onChange={(event) => setTopText(event.currentTarget.value)}
-            required
-          />
-        </div>
-        <br />
-        <div className="user-input">
-          <label htmlFor="bottom-text-input-field">Bottom text</label>
-          <input
-            id="bottom-text-input-field"
-            value={bottomText}
-            onChange={(event) => setBottomText(event.currentTarget.value)}
-          />
-        </div>
-        <br />
-        <div className="user-input">
-          <TemplateSelector
-            templateList={templateList}
-            setTemplateList={setTemplateList}
-            setSelectedTemplate={setSelectedTemplate}
-          />
-        </div>
+      <div className="form-and-button">
+        <form onSubmit={handleFormSubmit}>
+          <div className="user-input">
+            <label htmlFor="top-text-input-field">Top text</label>
+            <input
+              id="top-text-input-field"
+              value={topText}
+              onChange={(event) => setTopText(event.currentTarget.value)}
+              required
+            />
+          </div>
+          <br />
+          <div className="user-input">
+            <label htmlFor="bottom-text-input-field">Bottom text</label>
+            <input
+              id="bottom-text-input-field"
+              value={bottomText}
+              onChange={(event) => setBottomText(event.currentTarget.value)}
+            />
+          </div>
+          <br />
+          <div className="user-input">
+            <TemplateSelector
+              templateList={templateList}
+              setTemplateList={setTemplateList}
+              setSelectedTemplate={setSelectedTemplate}
+            />
+          </div>
+          <input type="submit" hidden />
+        </form>
         <div className="button-area">
           <button
             data-test-id="generate-meme"
@@ -69,8 +72,7 @@ export default function App() {
           </button>
           <DownloadImage url={memeImageUrl} fileName="meme.png" />
         </div>
-        <input type="submit" hidden />
-      </form>
+      </div>
       <br />
       <div className="image-area">
         <img
