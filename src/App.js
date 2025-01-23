@@ -12,17 +12,43 @@ export default function App() {
     "https://api.memegen.link/images/boat/let's_make/some_memes.png",
   ); // State of the image url
 
+  // Function that sends a POST request to the API to get image url
+  function requestImageURL() {
+    fetch('https://api.memegen.link/images', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        /* Sends template id and texts as payload.
+        Also converts the characters #, ? and / to their escape characters */
+        template_id: selectedTemplate,
+        text: [
+          topText.replace('#', '~h').replace('?', '~q').replace('/', '~s'),
+          bottomText.replace('#', '~h').replace('?', '~q').replace('/', '~s'),
+        ],
+      }),
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Request failed!');
+        },
+        (networkError) => console.log(networkError.message),
+      )
+      .then((jsonResponse) => {
+        // If request was successful it sets the memeImageUrl state accordingly
+        setMemeImageUrl(jsonResponse.url);
+      })
+      .catch((error) => console.log(error));
+  }
+
   // Form submit handler which prevents reloading of site and calls a function which leads to an updated memeImageUrl state
   function handleFormSubmit(event) {
     event.preventDefault();
-    // Checks if there is a top text (otherwise the API doesn't work)
-    if (topText) {
-      // Sets the setMemeImageUrl according to the inputted values leading to a re-rendering
-      // Also converts the characters #, ? and / to their escape characters in the top text and bottom text
-      setMemeImageUrl(
-        `https://api.memegen.link/images/${selectedTemplate}/${topText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}/${bottomText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}.png`,
-      );
-    }
+    requestImageURL();
   }
 
   return (
@@ -36,8 +62,7 @@ export default function App() {
               id="top-text-input-field"
               value={topText}
               onChange={(event) => setTopText(event.currentTarget.value)}
-              placeholder="Type in the top text (required)"
-              required
+              placeholder="Type in the top text"
             />
           </div>
           <br />
