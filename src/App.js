@@ -4,13 +4,13 @@ import { DownloadImage } from './DownloadImage';
 import TemplateSelector from './TemplateSelector';
 
 export default function App() {
-  const [topText, setTopText] = useState(''); // State for the top text
-  const [bottomText, setBottomText] = useState(''); // State for the bottom text
-  const [selectedTemplate, setSelectedTemplate] = useState('boat'); // State for the selected template
-  const [templateList, setTemplateList] = useState([]); // State for the fetched template list
+  const [topText, setTopText] = useState(''); // State of the top text
+  const [bottomText, setBottomText] = useState(''); // State of the bottom text
+  const [selectedTemplate, setSelectedTemplate] = useState('boat'); // State of the selected template
+  const [templateList, setTemplateList] = useState([]); // State of the fetched template list
   const [memeImageUrl, setMemeImageUrl] = useState(
     "https://api.memegen.link/images/boat/let's_make/some_memes.png",
-  ); // State for the image url
+  ); // State of the image url
 
   // Form submit handler which prevents reloading of site and calls a function which leads to an updated memeImageUrl state
   function handleFormSubmit(event) {
@@ -20,6 +20,7 @@ export default function App() {
 
   // Function that conditionally sets the setMemeImageUrl state
   function makeNewImage() {
+    // Checks if there is a top text (otherwise the API doesn't work)
     if (topText) {
       // Sets the setMemeImageUrl according to the inputted values leading to a re-rendering
       // Also converts the characters #, ? and / to their escape characters in the top text and bottom text
@@ -33,7 +34,7 @@ export default function App() {
     <div className="main">
       <div className="form-and-button">
         <form onSubmit={handleFormSubmit}>
-          {/* top text input field and label */}
+          {/* Top text input field and label */}
           <div className="user-input">
             <label htmlFor="top-text-input-field">Top text</label>
             <input
@@ -44,7 +45,7 @@ export default function App() {
             />
           </div>
           <br />
-          {/* bottom text input field and label */}
+          {/* Bottom text input field and label */}
           <div className="user-input">
             <label htmlFor="bottom-text-input-field">Bottom text</label>
             <input
