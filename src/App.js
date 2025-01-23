@@ -41,6 +41,7 @@ export default function App() {
               id="top-text-input-field"
               value={topText}
               onChange={(event) => setTopText(event.currentTarget.value)}
+              placeholder="Type in the top text (required)"
               required
             />
           </div>
@@ -52,6 +53,7 @@ export default function App() {
               id="bottom-text-input-field"
               value={bottomText}
               onChange={(event) => setBottomText(event.currentTarget.value)}
+              placeholder="Type in the bottom text"
             />
           </div>
           <br />

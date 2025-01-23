@@ -24,6 +24,7 @@ export default function TemplateSelector({
         id="template-input"
         list="templates"
         onChange={(event) => setSelectedTemplate(event.currentTarget.value)}
+        placeholder="Select template"
       />
       {/* Uses the value of the "id" property from the objects in the fetched templates array for the select dropdown menu */}
       <datalist id="templates">
