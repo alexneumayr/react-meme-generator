@@ -1,6 +1,7 @@
 import React from 'react';
 
 export const DownloadImage = ({ url, fileName }) => {
+  // Function to download files with the browser (based on an online code snippet)
   const handleDownload = () => {
     fetch(url)
       .then((response) => response.blob())
@@ -19,5 +20,6 @@ export const DownloadImage = ({ url, fileName }) => {
       });
   };
 
+  // Shows "Download" button which triggers handleDownload
   return <button onClick={handleDownload}>Download</button>;
 };

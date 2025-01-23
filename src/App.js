@@ -4,25 +4,25 @@ import { DownloadImage } from './DownloadImage';
 import TemplateSelector from './TemplateSelector';
 
 export default function App() {
-  const [topText, setTopText] = useState('');
-  const [bottomText, setBottomText] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState('boat');
-  const [templateList, setTemplateList] = useState([]);
+  const [topText, setTopText] = useState(''); // State for the top text
+  const [bottomText, setBottomText] = useState(''); // State for the bottom text
+  const [selectedTemplate, setSelectedTemplate] = useState('boat'); // State for the selected template
+  const [templateList, setTemplateList] = useState([]); // State for the fetched template list
   const [memeImageUrl, setMemeImageUrl] = useState(
     "https://api.memegen.link/images/boat/let's_make/some_memes.png",
-  );
+  ); // State for the image url
 
+  // Form submit handler which prevents reloading of site and calls a function which leads to an updated memeImageUrl state
   function handleFormSubmit(event) {
     event.preventDefault();
-    if (topText) {
-      setMemeImageUrl(
-        `https://api.memegen.link/images/${selectedTemplate}/${topText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}/${bottomText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}.png`,
-      );
-    }
+    makeNewImage();
   }
 
-  function handleGenerateButtonClick() {
+  // Function that conditionally sets the setMemeImageUrl state
+  function makeNewImage() {
     if (topText) {
+      // Sets the setMemeImageUrl according to the inputted values leading to a re-rendering
+      // Also converts the characters #, ? and / to their escape characters in the top text and bottom text
       setMemeImageUrl(
         `https://api.memegen.link/images/${selectedTemplate}/${topText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}/${bottomText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}.png`,
       );
@@ -33,6 +33,7 @@ export default function App() {
     <div className="main">
       <div className="form-and-button">
         <form onSubmit={handleFormSubmit}>
+          {/* top text input field and label */}
           <div className="user-input">
             <label htmlFor="top-text-input-field">Top text</label>
             <input
@@ -43,6 +44,7 @@ export default function App() {
             />
           </div>
           <br />
+          {/* bottom text input field and label */}
           <div className="user-input">
             <label htmlFor="bottom-text-input-field">Bottom text</label>
             <input
@@ -52,6 +54,7 @@ export default function App() {
             />
           </div>
           <br />
+          {/* TemplateSelector Component which enables the user to select a template */}
           <div className="user-input">
             <TemplateSelector
               templateList={templateList}
@@ -59,20 +62,26 @@ export default function App() {
               setSelectedTemplate={setSelectedTemplate}
             />
           </div>
-          <input type="submit" hidden />
+          {/* Hidden submit button to enable form submit when you press the Enter key */}
+          <input type="submit" hidden />{' '}
         </form>
         <div className="button-area">
+          {/* "Generate" button which triggers makeNewImage() */}
           <button
             data-test-id="generate-meme"
-            onClick={handleGenerateButtonClick}
+            onClick={() => {
+              makeNewImage();
+            }}
           >
             Generate
           </button>
+          {/* "Download" button from the DownloadImage component */}
           <DownloadImage url={memeImageUrl} fileName="meme.png" />
         </div>
       </div>
       <br />
       <div className="image-area">
+        {/* Shows the Meme image */}
         <img
           src={memeImageUrl}
           alt="Generated Meme"
