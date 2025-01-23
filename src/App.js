@@ -15,11 +15,6 @@ export default function App() {
   // Form submit handler which prevents reloading of site and calls a function which leads to an updated memeImageUrl state
   function handleFormSubmit(event) {
     event.preventDefault();
-    makeNewImage();
-  }
-
-  // Function that conditionally sets the setMemeImageUrl state
-  function makeNewImage() {
     // Checks if there is a top text (otherwise the API doesn't work)
     if (topText) {
       // Sets the setMemeImageUrl according to the inputted values leading to a re-rendering
@@ -65,22 +60,13 @@ export default function App() {
               setSelectedTemplate={setSelectedTemplate}
             />
           </div>
-          {/* Hidden submit button to enable form submit when you press the Enter key */}
-          <input type="submit" hidden />{' '}
+          <div className="button-area">
+            {/* "Generate" button which triggers form submit */}
+            <button data-test-id="generate-meme">Generate</button>
+            {/* "Download" button from the DownloadImage component */}
+            <DownloadImage url={memeImageUrl} fileName="meme.png" />
+          </div>
         </form>
-        <div className="button-area">
-          {/* "Generate" button which triggers makeNewImage() */}
-          <button
-            data-test-id="generate-meme"
-            onClick={() => {
-              makeNewImage();
-            }}
-          >
-            Generate
-          </button>
-          {/* "Download" button from the DownloadImage component */}
-          <DownloadImage url={memeImageUrl} fileName="meme.png" />
-        </div>
       </div>
       <br />
       <div className="image-area">

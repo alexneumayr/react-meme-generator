@@ -21,5 +21,9 @@ export const DownloadImage = ({ url, fileName }) => {
   };
 
   // Shows "Download" button which triggers handleDownload
-  return <button onClick={handleDownload}>Download</button>;
+  return (
+    <button type="button" onClick={handleDownload}>
+      Download
+    </button>
+  );
 };
