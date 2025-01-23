@@ -10,7 +10,7 @@ export default function TemplateSelector({
     fetch('https://api.memegen.link/templates/')
       .then((response) => response.json())
       .then((data) => {
-        /* Set templateList only with unique templates (the fetched templates array contains double-entries where only the example text is different) */
+        /* Set templateList only with unique templates (the fetched templates array contains double-entries) */
         setTemplateList([...new Map(data.map((v) => [v.id, v])).values()]);
       })
       .catch((error) => console.log(error));

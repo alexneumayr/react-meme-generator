@@ -47,6 +47,7 @@ export default function App() {
 
   // Form submit handler which prevents reloading of site and calls a function which leads to an updated memeImageUrl state
   function handleFormSubmit(event) {
+    p;
     event.preventDefault();
     requestImageURL();
   }
