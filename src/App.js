@@ -7,7 +7,6 @@ export default function App() {
   const [topText, setTopText] = useState('');
   const [bottomText, setBottomText] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState('boat');
-  const [template, setTemplate] = useState('boat');
   const [templateList, setTemplateList] = useState([]);
   const [memeImageUrl, setMemeImageUrl] = useState(
     "https://api.memegen.link/images/boat/let's_make/some_memes.png",
@@ -15,7 +14,6 @@ export default function App() {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    setTemplate(selectedTemplate);
     if (topText) {
       setMemeImageUrl(
         `https://api.memegen.link/images/${selectedTemplate}/${topText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}/${bottomText.replace('#', '~h').replace('?', '~q').replace('/', '~s')}.png`,
